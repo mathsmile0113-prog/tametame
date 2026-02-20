@@ -7,7 +7,9 @@
     content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"
   />
   <title>がまん貯金（スマホ最適）</title>
-  styles.css
+
+  <!-- ✅ CSS は必ず <link> で読み込む -->
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <div id="app" class="app">
@@ -65,6 +67,7 @@
     <img id="modalImage" alt="プレビュー" />
   </div>
 
-  app.js</script>
+  <!-- ✅ JS は必ず <script src="..."> で読み込む（defer 推奨） -->
+  <script src="./app.js" defer></script>
 </body>
 </html>
