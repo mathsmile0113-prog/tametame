@@ -1,0 +1,108 @@
+:root {
+  --bg: #0f172a;          /* slate-900 */
+  --card: #111827;        /* gray-900 */
+  --text: #e5e7eb;        /* gray-200 */
+  --muted: #9ca3af;       /* gray-400 */
+  --primary: #22c55e;     /* green-500 */
+  --accent: #38bdf8;      /* sky-400 */
+  --danger: #ef4444;      /* red-500 */
+  --border: #1f2937;      /* gray-800 */
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  background: linear-gradient(180deg, #0b1024 0%, #0f172a 100%);
+  color: var(--text);
+}
+
+.app-header {
+  position: sticky; top: 0; z-index: 5;
+  background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+}
+.app-header h1 { margin: 0; font-size: 20px; letter-spacing: .03em; }
+
+.container {
+  padding: 14px;
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+.card h2 { margin: 4px 0 12px; font-size: 18px; }
+
+.field { margin-bottom: 10px; }
+label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px; }
+input[type="text"], input[type="number"], input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  background: #0b1224;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.btn {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #0b1224;
+  color: var(--text);
+  font-weight: 600;
+}
+.btn.primary { background: var(--primary); color: #07240f; border: none; }
+.btn.ghost { background: transparent; color: var(--muted); }
+.btn.danger { background: var(--danger); border: none; color: white; }
+
+.list { display: grid; gap: 12px; }
+.goal {
+  display: grid; gap: 10px;
+  grid-template-columns: 86px 1fr;
+  align-items: start;
+}
+.goal .thumb {
+  width: 86px; height: 86px; border-radius: 14px; overflow: hidden;
+  background: #0b1224; border: 1px solid var(--border); display: grid; place-items: center;
+}
+.goal .thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+.goal .meta { display: grid; gap: 8px; }
+.goal .title { font-size: 16px; font-weight: 700; }
+.goal .amounts { font-size: 12px; color: var(--muted); }
+
+.progress {
+  width: 100%; height: 12px; background: #0b1224;
+  border-radius: 999px; border: 1px solid var(--border); overflow: hidden;
+}
+.progress > span {
+  display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--primary));
+  width: 0%;
+}
+
+.row { display: flex; gap: 8px; align-items: center; }
+.grow { flex: 1; }
+input.amount {
+  text-align: right;
+}
+
+.actions { display: flex; gap: 8px; }
+
+.footer {
+  text-align: center; padding: 24px; color: var(--muted);
+}
+
+/* 紙吹雪キャンバスを全画面に */
+#confettiCanvas {
+  position: fixed; inset: 0; pointer-events: none; z-index: 99;
+}

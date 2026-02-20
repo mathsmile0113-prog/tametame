@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>がまん貯金（スマホ版）</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>がまん貯金</h1>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>目標を追加</h2>
+      <form id="goalForm">
+        <div class="field">
+          <label for="goalName">欲しいもの</label>
+          <input id="goalName" type="text" placeholder="例：新しいスニーカー" required />
+        </div>
+        <div class="field">
+          <label for="goalTarget">目標金額（円）</label>
+          <input id="goalTarget" type="number" min="1" step="1" placeholder="例：12000" required />
+        </div>
+        <div class="field">
+          <label for="goalImage">画像（任意）</label>
+          <input id="goalImage" type="file" accept="image/*" capture="environment" />
+        </div>
+        <button class="btn primary" type="submit">追加する</button>
+      </form>
+    </section>
+
+    <section id="goalsList" class="list"></section>
+  </main>
+
+  <canvas id="confettiCanvas"></canvas>
+
+  <footer class="footer">
+    <small>© がまん貯金</small>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
