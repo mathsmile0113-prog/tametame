@@ -1,108 +1,118 @@
-:root {
-  --bg: #0f172a;          /* slate-900 */
-  --card: #111827;        /* gray-900 */
-  --text: #e5e7eb;        /* gray-200 */
-  --muted: #9ca3af;       /* gray-400 */
-  --primary: #22c55e;     /* green-500 */
-  --accent: #38bdf8;      /* sky-400 */
-  --danger: #ef4444;      /* red-500 */
-  --border: #1f2937;      /* gray-800 */
+:root{
+  --bg:#0f172a; --card:#111827; --text:#e5e7eb; --muted:#9ca3af;
+  --primary:#22c55e; --accent:#38bdf8; --danger:#ef4444; --border:#1f2937;
+  --radius:16px; --shadow:0 6px 20px rgba(0,0,0,.25);
+  --vh:1vh; /* JSで実測に更新 */
 }
 
-* { box-sizing: border-box; }
-html, body { height: 100%; }
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
-  background: linear-gradient(180deg, #0b1024 0%, #0f172a 100%);
-  color: var(--text);
+/* ===== ベース ===== */
+*{box-sizing:border-box}
+html,body{height:100%}
+html{
+  /* 画面幅に応じて15〜18pxで自動調整（スマホ読みやすく） */
+  font-size:clamp(15px,1.6vw + 12px,18px);
+  -webkit-text-size-adjust:100%;
+}
+body{
+  margin:0; background:linear-gradient(180deg,#0b1024 0%,#0f172a 100%); color:var(--text);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  line-height:1.6; letter-spacing:.02em;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
 
-.app-header {
-  position: sticky; top: 0; z-index: 5;
-  background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--border);
-  padding: 12px 16px;
-}
-.app-header h1 { margin: 0; font-size: 20px; letter-spacing: .03em; }
-
-.container {
-  padding: 14px;
-  max-width: 840px;
-  margin: 0 auto;
+/* ===== レイアウト：画面いっぱい（Pixel 6a想定） ===== */
+.app{
+  min-height:100dvh; /* 新しい安定vh */
+  min-height:calc(var(--vh)*100); /* フォールバック */
+  display:flex; flex-direction:column;
+  padding-top:env(safe-area-inset-top); padding-bottom:env(safe-area-inset-bottom);
 }
 
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 14px;
-  margin-bottom: 14px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+.app-header{
+  position:sticky; top:0; z-index:5;
+  background:rgba(15,23,42,.85); backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+  padding:12px 16px;
 }
-.card h2 { margin: 4px 0 12px; font-size: 18px; }
+.app-header h1{margin:0; font-size:clamp(20px,2.4vw + 14px,28px); letter-spacing:.03em}
 
-.field { margin-bottom: 10px; }
-label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px; }
-input[type="text"], input[type="number"], input[type="file"] {
-  width: 100%;
-  padding: 12px;
-  background: #0b1224;
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+.container{padding:14px; max-width:860px; margin:0 auto; width:100%}
+
+.card{
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+  padding:16px; margin-bottom:16px; box-shadow:var(--shadow);
+}
+.card h2{margin:4px 0 12px; font-size:clamp(16px,2vw + 12px,22px)}
+
+.field{margin-bottom:12px}
+label{font-size:.9rem; color:var(--muted); display:block; margin-bottom:6px}
+input[type="text"],input[type="number"],input[type="file"]{
+  width:100%; padding:12px 14px; background:#0b1224; color:var(--text);
+  border:1px solid var(--border); border-radius:12px; font-size:1rem; min-height:44px;
+}
+input.amount{ text-align:right; font-variant-numeric:tabular-nums; }
+
+/* ===== リスト＆目標カード ===== */
+.list{display:grid; gap:14px}
+.goal-card{display:grid; gap:12px}
+
+/* 大きいサムネ：正方形、最大42vhまで（縦長画面でも大きく） */
+.goal-card .thumb{
+  width:100%; background:#0b1224; border:1px solid var(--border); border-radius:14px;
+  display:grid; place-items:center; overflow:hidden;
+  aspect-ratio:1 / 1; max-height:42vh;
+}
+.goal-card .thumb img{width:100%; height:100%; object-fit:cover}
+.goal-card .thumb .placeholder{font-size:32px; opacity:.7}
+
+.meta{display:grid; gap:10px}
+.title{font-size:1.1rem; font-weight:800}
+.amounts{font-size:.95rem; color:var(--muted)}
+
+.progress{width:100%; height:14px; background:#0b1224; border-radius:999px; border:1px solid var(--border); overflow:hidden}
+.progress>span{display:block; height:100%; background:linear-gradient(90deg,var(--accent),var(--primary)); width:0%}
+
+/* 金額入力行＋クイック加算 */
+.row{display:flex; gap:10px; align-items:center}
+.grow{flex:1}
+.btn{
+  padding:12px 16px; border-radius:12px; border:1px solid var(--border);
+  background:#0b1224; color:var(--text); font-weight:700; min-height:44px; font-size:1rem;
+}
+.btn.primary{background:var(--primary); color:#07240f; border:none}
+.btn.ghost{background:transparent; color:var(--muted)}
+.btn.danger{background:var(--danger); border:none; color:#fff}
+
+.quick-add{display:flex; flex-wrap:wrap; gap:8px}
+.chip{
+  padding:10px 12px; border-radius:999px; border:1px solid var(--border);
+  background:#0b1224; color:var(--text); min-height:40px; font-variant-numeric:tabular-nums;
+  user-select:none;
+}
+.chip:active{transform:scale(.98)}
+
+/* 画像モーダル */
+.image-modal{
+  position:fixed; inset:0; z-index:100; display:grid; place-items:center;
+  background:rgba(0,0,0,.86);
+}
+.image-modal img{
+  width:90vw; height:auto; max-height:90vh; object-fit:contain; border-radius:12px;
 }
 
-.btn {
-  padding: 12px 14px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: #0b1224;
-  color: var(--text);
-  font-weight: 600;
-}
-.btn.primary { background: var(--primary); color: #07240f; border: none; }
-.btn.ghost { background: transparent; color: var(--muted); }
-.btn.danger { background: var(--danger); border: none; color: white; }
+/* 紙吹雪キャンバス */
+#confettiCanvas{position:fixed; inset:0; pointer-events:none; z-index:99}
 
-.list { display: grid; gap: 12px; }
-.goal {
-  display: grid; gap: 10px;
-  grid-template-columns: 86px 1fr;
-  align-items: start;
-}
-.goal .thumb {
-  width: 86px; height: 86px; border-radius: 14px; overflow: hidden;
-  background: #0b1224; border: 1px solid var(--border); display: grid; place-items: center;
-}
-.goal .thumb img { width: 100%; height: 100%; object-fit: cover; }
+/* フッタ */
+.footer{text-align:center; padding:24px; color:var(--muted)}
 
-.goal .meta { display: grid; gap: 8px; }
-.goal .title { font-size: 16px; font-weight: 700; }
-.goal .amounts { font-size: 12px; color: var(--muted); }
-
-.progress {
-  width: 100%; height: 12px; background: #0b1224;
-  border-radius: 999px; border: 1px solid var(--border); overflow: hidden;
-}
-.progress > span {
-  display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--primary));
-  width: 0%;
+/* モバイル微調整 */
+@media (max-width:480px){
+  .btn{border-radius:14px}
+  .actions{display:flex; gap:10px}
 }
 
-.row { display: flex; gap: 8px; align-items: center; }
-.grow { flex: 1; }
-input.amount {
-  text-align: right;
-}
-
-.actions { display: flex; gap: 8px; }
-
-.footer {
-  text-align: center; padding: 24px; color: var(--muted);
-}
-
-/* 紙吹雪キャンバスを全画面に */
-#confettiCanvas {
-  position: fixed; inset: 0; pointer-events: none; z-index: 99;
+/* 動きが苦手な人への配慮 */
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important; animation:none !important}
 }

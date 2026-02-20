@@ -2,44 +2,69 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-  <title>がまん貯金（スマホ版）</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"
+  />
+  <title>がまん貯金（スマホ最適）</title>
+  styles.css
 </head>
 <body>
-  <header class="app-header">
-    <h1>がまん貯金</h1>
-  </header>
+  <div id="app" class="app">
+    <header class="app-header">
+      <h1>がまん貯金</h1>
+    </header>
 
-  <main class="container">
-    <section class="card">
-      <h2>目標を追加</h2>
-      <form id="goalForm">
-        <div class="field">
-          <label for="goalName">欲しいもの</label>
-          <input id="goalName" type="text" placeholder="例：新しいスニーカー" required />
-        </div>
-        <div class="field">
-          <label for="goalTarget">目標金額（円）</label>
-          <input id="goalTarget" type="number" min="1" step="1" placeholder="例：12000" required />
-        </div>
-        <div class="field">
-          <label for="goalImage">画像（任意）</label>
-          <input id="goalImage" type="file" accept="image/*" capture="environment" />
-        </div>
-        <button class="btn primary" type="submit">追加する</button>
-      </form>
-    </section>
+    <main class="container">
+      <!-- 目標の追加 -->
+      <section class="card">
+        <h2>目標を追加</h2>
+        <form id="goalForm">
+          <div class="field">
+            <label for="goalName">欲しいもの</label>
+            <input id="goalName" type="text" placeholder="例：Pixel Buds Pro" required />
+          </div>
 
-    <section id="goalsList" class="list"></section>
-  </main>
+          <div class="field">
+            <label for="goalTarget">目標金額（円）</label>
+            <input
+              id="goalTarget"
+              type="number"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              min="1"
+              step="1"
+              placeholder="例：12000"
+              required
+            />
+          </div>
 
-  <canvas id="confettiCanvas"></canvas>
+          <div class="field">
+            <label for="goalImage">画像（任意・タップで拡大可）</label>
+            <input id="goalImage" type="file" accept="image/*" capture="environment" />
+          </div>
 
-  <footer class="footer">
-    <small>© がまん貯金</small>
-  </footer>
+          <button class="btn primary" type="submit">追加する</button>
+        </form>
+      </section>
 
-  <script src="app.js" defer></script>
+      <!-- 目標一覧 -->
+      <section id="goalsList" class="list" aria-live="polite"></section>
+    </main>
+
+    <!-- 達成アニメーション -->
+    <canvas id="confettiCanvas"></canvas>
+
+    <footer class="footer">
+      <small>© がまん貯金</small>
+    </footer>
+  </div>
+
+  <!-- 画像フルスクリーン表示 -->
+  <div id="imageModal" class="image-modal" hidden>
+    <img id="modalImage" alt="プレビュー" />
+  </div>
+
+  app.js</script>
 </body>
 </html>
